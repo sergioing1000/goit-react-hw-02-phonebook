@@ -3,24 +3,30 @@ import { customAlphabet } from "nanoid";
 
 import "./formu.css";
 
-//
-
-export const Formu = () => {
+export const Formu = ( {onSubmit} ) => {
 
   const [inputValueName, setinputValueName] = useState("");
   const [inputValueTel, setinputValueTel] = useState("");
 
   const onInputNamechange = (event) => {
-      setinputValueName(event.target.value);
+    setinputValueName(event.target.value);
   };
   
   const onInputTelchange = (event) => {
-      setinputValueTel(event.target.value);
+    setinputValueTel(event.target.value);
   };
 
-  return [
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    onSubmit(inputValueName, inputValueTel);
+
+    setinputValueName("");
+    setinputValueTel("");
+  };
+
+  return (
     <>
-      <form className="formulario" onSubmit={(event) => onSubmit(event)}>
+      <form className="formulario" onSubmit={handleSubmit}>
         <p>Name:</p>
 
         <input
@@ -55,7 +61,6 @@ export const Formu = () => {
           Add Contact
         </button>
       </form>
-    </>,
-  ];
-
+    </>
+  );
 }
