@@ -1,16 +1,17 @@
 import './App.css'
 
-import { Generador } from './Components/Generador'
+
 import { Formu } from "./Components/Formu";
+import { Contacts } from "./Components/Contacts";
+import { Generador } from "./Components/Generador";
 
 function App() {
   return (
     <>
       <h1>Phonebook</h1>
       <Formu />
-
+      <Contacts />
       <Generador />
-      
     </>
   );
 }

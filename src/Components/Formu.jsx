@@ -3,8 +3,6 @@ import { customAlphabet } from "nanoid";
 
 import "./formu.css";
 
-import { Contacts } from "../Components/Contacts";
-
 //
 
 export const Formu = () => {
