@@ -1,14 +1,18 @@
-import { useState } from 'react';
+import { useState } from "react";
 import { customAlphabet } from "nanoid";
 
-  
-import './formu.css'
+import "./formu.css";
 
 import { Contacts } from "../Components/Contacts";
 
-export const Formu = () => {
+//
 
-  const generateUniqueID = customAlphabet('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!"#$%&/()=+',10);
+export const Formu = () => {
+  
+  const generateUniqueID = customAlphabet(
+    '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!"#$%&/()=+',
+    10
+  );
 
   let state = {
     contacts: [
@@ -23,13 +27,12 @@ export const Formu = () => {
   const [inputValueName, setinputValueName] = useState("");
   const [inputValueTel, setinputValueTel] = useState("");
 
+  const onInputNamechange = (event) => {
+    setinputValueName(event.target.value);
+  };
 
   const onInputTelchange = (event) => {
     setinputValueTel(event.target.value);
-  };
-
-  const onInputNamechange = (event) => {
-    setinputValueName(event.target.value);
   };
 
   const onSubmit = (event) => {
@@ -92,12 +95,11 @@ export const Formu = () => {
           required
         />
 
-        <button className="formButton">Add Contact</button>
+        <button className="formButton" type="submit">
+          Add Contact
+        </button>
       </form>
-
-
-
-      <Contacts data={arreglo}> </Contacts>
+      <Contacts data={arreglo} />;
     </>
   );
-}
+};

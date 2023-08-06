@@ -7,8 +7,10 @@ function App() {
   return (
     <>
       <h1>Phonebook</h1>
-      <Generador />
       <Formu />
+
+      <Generador />
+      
     </>
   );
 }
