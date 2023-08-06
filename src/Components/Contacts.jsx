@@ -39,7 +39,6 @@ export const Contacts = (rData) => {
 
     setFilteredItems(filtered);
   };
-
   return (
     <>
       <section className="contactsSec">
