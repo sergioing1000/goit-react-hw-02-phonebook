@@ -10,8 +10,8 @@ function App() {
     <>
       <h1>Phonebook</h1>
       <Formu />
-      <Contacts />
-      <Generador />
+      {/* <Contacts />
+      <Generador /> */}
     </>
   );
 }
