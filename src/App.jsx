@@ -1,3 +1,4 @@
+import React from 'react';
 import './App.css'
 import { useState } from "react";
 import { customAlphabet } from "nanoid";
@@ -7,8 +8,20 @@ import { Formu } from "./Components/Formu";
 import { Contacts } from "./Components/Contacts";
 import { Generador } from "./Components/Generador";
 
+import Swal from "sweetalert2";
+
+
+
 function App() {
 
+
+  const mostrarAlerta = (nome) => {
+    const mensaje = `${nome}, 
+     is already in Contacts`;
+
+    Swal.fire("¡Sorry!", mensaje , "error");
+  };
+  
 
   const generateUniqueID = customAlphabet(
     '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!"#$%&/()=+',
@@ -37,7 +50,18 @@ function App() {
 
     const newContact = { id: generateUniqueID(), name: nameValue, number: telValue };
 
-    setContacts([...contacts, newContact]);
+    let existeNombre = false;
+
+    for (const element of contacts) {
+      if (element.name === nameValue) {
+        existeNombre = true;
+        break; 
+      }
+    }
+
+    existeNombre
+      ? mostrarAlerta(nameValue)
+      : setContacts([...contacts, newContact]);
 
   };
 
