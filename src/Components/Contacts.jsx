@@ -1,21 +1,9 @@
-import './contacts.css'
+import "./contacts.css";
 import { useState } from "react";
-
-const Items = ({ nombre, tel }) => {
-
-  return (
-    <li style={{ textAlign: "left" }}>
-      <span style={{ fontWeight: "bold" }}> 👤 {nombre}</span>
-      <span> ............ </span>
-      <span> 📞 {tel}</span>
-    </li>
-  );
-};
-
+import { useEffect } from "react";
 
 export const Contacts = ({ contacts }) => {
-
-
+  
   const [filter, setFilter] = useState("");
 
   const [filteredItems, setFilteredItems] = useState(contacts);
@@ -27,11 +15,29 @@ export const Contacts = ({ contacts }) => {
     const filtered = contacts.filter((item) =>
       item.name.toLowerCase().includes(value.toLowerCase())
     );
-
     setFilteredItems(filtered);
-
   };
 
+  const Items = ({ nombre, tel, ident }) => {
+    return (
+      <li className="ItemList" style={{ textAlign: "left" }}>
+        <span style={{ fontWeight: "bold" }}> 👤 {nombre}</span>
+        <span> ............ </span>
+        <span> 📞 {tel}</span>
+        <span> ............ </span>
+        <button className="ButtonList" onClick={() => clickDeletItem(ident)}>
+          ⛔ Delete
+        </button>
+      </li>
+    );
+  };
+
+  const clickDeletItem = (idToDelete) => {
+    const updatedContacts = filteredItems.filter(
+      (posici) => posici.id !== idToDelete
+    );
+    setFilteredItems(updatedContacts);
+  };
 
   return (
     <>
@@ -49,18 +55,27 @@ export const Contacts = ({ contacts }) => {
           <ul>
             {filter === ""
               ? contacts.map((item) => (
-                  <Items key={item.id} nombre={item.name} tel={item.number}>
+                  <Items
+                    key={item.id}
+                    nombre={item.name}
+                    tel={item.number}
+                    ident={item.id}
+                  >
                     {" "}
                   </Items>
                 ))
               : filteredItems.map((item) => (
-                  <Items key={item.id} nombre={item.name} tel={item.number}>
+                  <Items
+                    key={item.id}
+                    nombre={item.name}
+                    tel={item.number}
+                    ident={item.id}
+                  >
                     {" "}
                   </Items>
                 ))}
           </ul>
         </div>
-        
       </section>
     </>
   );

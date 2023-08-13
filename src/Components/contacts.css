@@ -18,3 +18,15 @@
     align-items: baseline;
     width: 600px;
 }
+
+.ButtonList{
+    display: inline;
+    height: 25px;
+    width: 90px;
+    padding: 0;
+    margin: 4px 0;
+}
+
+.ItemList{
+    text-align: center;
+}
