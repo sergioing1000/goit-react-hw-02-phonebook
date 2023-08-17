@@ -58,7 +58,7 @@ export const Formu = ( {onSubmit} ) => {
         />
 
         <button className="formButton" type="submit">
-          Add Contact
+          New Contact
         </button>
       </form>
     </>
