@@ -1,4 +1,4 @@
-@import '../aditional/colors.css';
+@import './aditional/colors.css';
 
 .container {
   display: flex;
