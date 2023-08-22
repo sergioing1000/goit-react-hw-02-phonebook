@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './colors.css';
 
 import style from './toogle.module.css';
-import '../arrows/arrows';
+import './arrow.css';
 
 function Dark() {
   const [theme, setTheme] = useState('dark');
