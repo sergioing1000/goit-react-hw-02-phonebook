@@ -8,6 +8,7 @@ const ContactList = ({ contacts, onDeleteContact }) => (
         <div className={style.contDetail}>
           <p className={style.name}>{name}</p>
           <p className={style.number}>{number}</p>
+          <p>ID: {id}</p>
         </div>
         <button
           className={style.btn}

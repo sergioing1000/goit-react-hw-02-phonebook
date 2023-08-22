@@ -36,32 +36,32 @@ class ContactForm extends Component {
       <div className={style.inputContent}>
         <form className={style.form} onSubmit={this.handleSubmit}>
           <div className={style.inputsCont}>
-            <p>Nombre </p>
+            <p>Name : </p>
 
             <input
               value={this.state.name}
-              onChange={this.handleChange('name')}
+              onChange={this.handleChange("name")}
               type="text"
               name="name"
-              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+              pattern="[A-Za-z\s\-']+"
               title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
               className={style.input}
               required
             />
-            <p>Numero</p>
+            <p>Number :</p>
             <input
               value={this.state.number}
-              onChange={this.handleChange('number')}
+              onChange={this.handleChange("number")}
               type="tel"
               name="number"
-              pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+              pattern="[0-9\s\-\(\)+]+"
               title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
               className={style.input}
               required
             />
           </div>
           <button type="submit" className={style.buttonEditor}>
-            Añadir
+            Add Contact
           </button>
         </form>
       </div>
