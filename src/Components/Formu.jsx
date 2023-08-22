@@ -50,8 +50,8 @@ export const Formu = ( {onSubmit} ) => {
           className="inputFieldTel"
           name="telnumber"
           placeholder="Ingresa nuevo teléfono"
-          value={inputValueTel}
           onChange={onInputTelchange}
+          value={inputValueTel}
           pattern="[0-9\s\-\(\)+]+"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required

@@ -1,77 +1,94 @@
-import React from 'react';
-import './App.css'
-import { useState } from "react";
-import { customAlphabet } from "nanoid";
-
-
-import { Formu } from "./Components/Formu";
-import { Contacts } from "./Components/Contacts";
-import { Generador } from "./Components/Generador";
-
+import React, { Component } from 'react';
+import shortid from 'shortid';
 import Swal from "sweetalert2";
 
+import style from './App.module.css';
 
+import Section from './Components/Section/Section';
 
-function App() {
+import ContactForm from "./Components/ContactForm/ContactForm";
+import ContactList from "./Components/ContactList/ContactList";
+import Filter from "./Components/Filter/Filter";
 
-
-  const mostrarAlerta = (nome) => {
-    const mensaje = `${nome}, 
-     is already in Contacts`;
-
-    Swal.fire("¡Sorry!", mensaje , "error");
-  };
-  
-
-  const generateUniqueID = customAlphabet(
-    '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!"#$%&/()=+',
-    10
-  );
-
-  let state = {
+class App extends Component {
+  state = {
     contacts: [
-      { id: "1", name: "Rosie Simpson", number: "459-12-56" },
-      { id: "2", name: "Hermione Kline", number: "443-89-12" },
-      { id: "3", name: "Eden Clements", number: "645-17-79" },
-      { id: "4", name: "Annie Copeland", number: "227-91-26" },
+      { id: "id-1", name: "Rosie Simpson", number: "459-12-56" },
+      { id: "id-2", name: "Hermione Kline", number: "443-89-12" },
+      { id: "id-3", name: "Eden Clements", number: "645-17-79" },
+      { id: "id-4", name: "Annie Copeland", number: "227-91-26" },
     ],
-    name: "",
+    filter: "",
   };
 
-  const [contacts, setContacts] = useState(state.contacts);
+  addContact = ({ name, number }) => {
+    const normalizedName = name.toLowerCase();
 
-  const [name, setName] = useState("");
-  const [tel, setTel] = useState("");
+    let isAdded = false;
+    this.state.contacts.forEach((el) => {
+      if (el.name.toLowerCase() === normalizedName) {
 
-  const handleFormSubmit = (nameValue, telValue) => {
+        const mensaje = `${name}, is already in Contacts`;
 
-    setName(nameValue);
-    setTel(telValue);
+        Swal.fire("¡Sorry!", mensaje, "error");
 
-    const newContact = { id: generateUniqueID(), name: nameValue, number: telValue };
-
-    let existeNombre = false;
-
-    for (const element of contacts) {
-      if (element.name === nameValue) {
-        existeNombre = true;
-        break; 
+        isAdded = true;
       }
+    });
+
+    if (isAdded) {
+      return;
     }
-
-    existeNombre
-      ? mostrarAlerta(nameValue)
-      : setContacts([...contacts, newContact]);
-
+    const contact = {
+      id: shortid.generate(),
+      name: name,
+      number: number,
+    };
+    this.setState((prevState) => ({
+      contacts: [...prevState.contacts, contact],
+    }));
   };
 
-  return (
-    <>
-      <h2>Phonebook</h2>
-      <Formu onSubmit={handleFormSubmit} />
-      <Contacts contacts={contacts}/>
-    </>
-  );
+  changeFilter = (e) => {
+    this.setState({ filter: e.currentTarget.value });
+  };
+
+  getVisibleContacts = () => {
+    const { filter, contacts } = this.state;
+    const normalizedFilter = filter.toLowerCase();
+
+    return contacts.filter((contact) =>
+      contact.name.toLowerCase().includes(normalizedFilter)
+    );
+  };
+
+  deleteContact = (todoId) => {
+    this.setState((prevState) => ({
+      contacts: prevState.contacts.filter((contact) => contact.id !== todoId),
+    }));
+  };
+
+  render() {
+    const { contacts, filter } = this.state;
+    const visibleContacts = this.getVisibleContacts();
+
+    return (
+      <div className={style.container}>
+        <Section title="PhoneBook">
+          <ContactForm onSubmit={this.addContact} />
+        </Section>
+
+        <Section title="Contacts">
+          <Filter value={filter} onChange={this.changeFilter} />
+          <div className={style.allContacts}>Contacts Qty: {contacts.length}</div>
+          <ContactList
+            contacts={visibleContacts}
+            onDeleteContact={this.deleteContact}
+          />
+        </Section>
+      </div>
+    );
+  }
 }
 
-export default App
+export default App;

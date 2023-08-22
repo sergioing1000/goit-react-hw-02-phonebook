@@ -36,6 +36,7 @@ export const Contacts = ({ contacts }) => {
     const updatedContacts = filteredItems.filter(
       (posici) => posici.id !== idToDelete
     );
+    console.log(idToDelete);
     setFilteredItems(updatedContacts);
   };
 
