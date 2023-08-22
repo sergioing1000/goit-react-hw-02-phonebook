@@ -1,27 +1,24 @@
-import React from 'react';
-import './App.css'
+import React from "react";
+import "./App.css";
+
 import { useState } from "react";
+
 import { customAlphabet } from "nanoid";
 
-
 import { Formu } from "./Components/Formu";
-import { Contacts } from "./Components/Contacts";
-import { Generador } from "./Components/Generador";
+// import { Contacts } from "./Components/Contacts";
+// import { Generador } from "./Components/Generador";
 
-import Swal from "sweetalert2";
-
-
+// import Swal from "sweetalert2";
 
 function App() {
 
-
   const mostrarAlerta = (nome) => {
-    const mensaje = `${nome}, 
+    const mensaje = `${nome},
      is already in Contacts`;
 
     Swal.fire("¡Sorry!", mensaje , "error");
   };
-  
 
   const generateUniqueID = customAlphabet(
     '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!"#$%&/()=+',
@@ -45,33 +42,39 @@ function App() {
 
   const handleFormSubmit = (nameValue, telValue) => {
 
+    console.log("entró a handle form submit");
+    
     setName(nameValue);
     setTel(telValue);
 
     const newContact = { id: generateUniqueID(), name: nameValue, number: telValue };
+
+    console.log(newContact);
 
     let existeNombre = false;
 
     for (const element of contacts) {
       if (element.name === nameValue) {
         existeNombre = true;
-        break; 
+        break;
       }
     }
 
     existeNombre
       ? mostrarAlerta(nameValue)
-      : setContacts([...contacts, newContact]);
+      : setContacts(contacts.push(newContact));
+    
+    console.log(state.contacts);
 
   };
 
   return (
     <>
-      <h2>Phonebook</h2>
+      <h2 className="heading-with-shadow">Phonebook</h2>
       <Formu onSubmit={handleFormSubmit} />
-      <Contacts contacts={contacts}/>
+      {/* <Contacts contacts={contacts} /> */}
     </>
   );
 }
 
-export default App
+export default App;
